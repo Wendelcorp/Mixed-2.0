@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @mix.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @mix.description %>
+</p>
+
+<div class="song-list">
+  <%= render @mix.songs %>
+  <div class="add-song-form">
+    <%= render "songs/form" %>
+  </div>
+</div>
+
+  <div id="video-placeholder"></div>
+
+<%= link_to 'Edit', edit_mix_path(@mix) %> |
+<%= link_to 'Back', mixes_path %>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+var player;
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('video-placeholder', {
+        width: 320,
+        height: 200,
+        videoId: '',
+        playerVars: {
+            color: 'white',
+            playlist: ''
+        },
+        events: {
+            onReady: initialize
+        }
+    });
+}
+function initialize(){
+}
+
+$('.play').on('click', function () {
+    player.playVideo();
+});
+$('.pause').on('click', function () {
+    player.pauseVideo();
+});
+$('.song').on('click', function () {
+    var url = $(this).attr('data-video-id');
+    player.cueVideoById(url);
+    $('#video-placeholder').css('display', 'block')
+    player.playVideo();
+});
+</script>
