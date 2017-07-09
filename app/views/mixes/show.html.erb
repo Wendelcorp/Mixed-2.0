@@ -1,20 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
+<h2>
+  <strong></strong>
   <%= @mix.title %>
-</p>
+</h2>
 
-<p>
-  <strong>Description:</strong>
+<h3>
+  <strong></strong>
   <%= @mix.description %>
-</p>
+</h3>
 
 <div class="song-list">
   <%= render @mix.songs %>
-  <div class="add-song-form">
-    <%= render "songs/form" %>
-  </div>
+  <%= render "songs/form" %>
 </div>
 
   <div id="video-placeholder"></div>
@@ -24,34 +22,34 @@
 
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
-var player;
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('video-placeholder', {
-        width: 320,
-        height: 200,
-        videoId: '',
-        playerVars: {
-            color: 'white',
-            playlist: ''
-        },
-        events: {
-            onReady: initialize
-        }
-    });
-}
-function initialize(){
-}
+  var player;
+  function onYouTubeIframeAPIReady() {
+      player = new YT.Player('video-placeholder', {
+          width: 320,
+          height: 200,
+          videoId: '',
+          playerVars: {
+              color: 'white',
+              playlist: ''
+          },
+          events: {
+              onReady: initialize
+          }
+      });
+  }
+  function initialize(){
+  }
 
-$('.play').on('click', function () {
-    player.playVideo();
-});
-$('.pause').on('click', function () {
-    player.pauseVideo();
-});
-$('.song').on('click', function () {
-    var url = $(this).attr('data-video-id');
-    player.cueVideoById(url);
-    $('#video-placeholder').css('display', 'block')
-    player.playVideo();
-});
+  $('.play').on('click', function () {
+      player.playVideo();
+  });
+  $('.pause').on('click', function () {
+      player.pauseVideo();
+  });
+  $('.song').on('click', function () {
+      var url = $(this).attr('data-video-id');
+      player.cueVideoById(url);
+      $('#video-placeholder').css('display', 'block')
+      player.playVideo();
+  });
 </script>

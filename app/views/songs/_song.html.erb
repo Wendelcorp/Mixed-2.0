@@ -1,4 +1,9 @@
+<hr>
 <p><strong><%= song.artist %></strong> - <%= song.title %><br><%= song.link %></p>
 <div class="song" data-video-id="<%= song.link %>">Launch</div>
 <div class="play">Play</div>
 <div class="pause">Pause</div>
+<%= link_to 'Delete', mix_song_path(@mix, song), method: :delete, data: { confirm: "Are you sure?" } %>
+
+
+<hr>
