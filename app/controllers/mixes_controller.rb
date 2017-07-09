@@ -1,15 +1,19 @@
 class MixesController < ApplicationController
   before_action :set_mix, only: [:show, :edit, :update, :destroy]
+  before_action :original_url
 
   # GET /mixes
   # GET /mixes.json
   def index
     @mixes = Mix.all
+
   end
 
   # GET /mixes/1
   # GET /mixes/1.json
   def show
+    # @song = @mix.songs.find(params[:id])
+    @songs = Song.all
   end
 
   # GET /mixes/new
@@ -69,6 +73,10 @@ class MixesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def mix_params
-      params.require(:mix).permit(:title, :description)
+      params.require(:mix).permit(:id, :title, :description, song_attributes => [:id, :title, :artist, :link])
+    end
+
+    def original_url
+      @share_url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
     end
 end
