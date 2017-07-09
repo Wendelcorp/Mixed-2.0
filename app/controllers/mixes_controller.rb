@@ -1,12 +1,15 @@
 class MixesController < ApplicationController
   before_action :set_mix, only: [:show, :edit, :update, :destroy]
   before_action :original_url
+  before_action :authenticate_user!, except: [:show]
 
   # GET /mixes
   # GET /mixes.json
   def index
-    @mixes = Mix.all
-
+    # @mixes = Mix.all
+    # @user = User.find(params[:user_id])
+    # @mixes = @user.mixes
+    @mixes = current_user.mixes
   end
 
   # GET /mixes/1
@@ -18,7 +21,7 @@ class MixesController < ApplicationController
 
   # GET /mixes/new
   def new
-    @mix = Mix.new
+    @mix = current_user.mixes.build
   end
 
   # GET /mixes/1/edit
@@ -28,7 +31,7 @@ class MixesController < ApplicationController
   # POST /mixes
   # POST /mixes.json
   def create
-    @mix = Mix.new(mix_params)
+    @mix = current_user.mixes.build(mix_params)
 
     respond_to do |format|
       if @mix.save
@@ -73,7 +76,7 @@ class MixesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def mix_params
-      params.require(:mix).permit(:id, :title, :description, song_attributes => [:id, :title, :artist, :link])
+      params.require(:mix).permit(:id, :title, :description)
     end
 
     def original_url
