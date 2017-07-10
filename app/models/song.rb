@@ -1,6 +1,7 @@
 class Song < ApplicationRecord
   belongs_to :mix
-
+  belongs_to :user
+  
   def parse_video_url(url)
     @url = url
 
